@@ -8,14 +8,23 @@
 
 </head>
 <body>
-<a th:href="@{/add}"> Add an actor </a>
-<div th:each="actor:${actors}">
-    <div th:if="${actor.headshot} != null">
-        <img th:src="${actor.headshot}" width="400"> <hr>
-        <h3 th:text="${actor.name}"></h3>
-        <h4 th:text="${actor.realName}"></h4>
-    </div>
+
+<div th:each="director:${directors}">
+        <h3 th:text="${director.name}"></h3>
+        <a th:href="@{/updateDirector/{id}(id=${director.id})}">update director</a>
+        <a th:href="@{/deleteDirector/{id}(id=${director.id})}">delete director</a>
+        <h4 th:text="${director.genre}"></h4>
+        <ul>
+            <th:block th:each="movie: ${director.movies}">
+                <li th:inline="text"><b>[[${movie.title}]]</b> released in [[${movie.year}]]</li>
+                <a th:href="@{/updateMovie/{id}(id=${movie.id})}">update movie</a>
+                <a th:href="@{/deleteMovie/{id}(id=${movie.id})}">delete movie</a>
+            </th:block>
+        </ul>
 </div>
+
+<a th:href="@{/addDirector/}">add director</a>
+<a th:href="@{/addMovie/}">add movie</a>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
